@@ -20,7 +20,7 @@ SevenSegmentDisplay::SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t p
     pinMode(pinDp, OUTPUT); // init() do not set the mode to the DP pin
 }
 
-SevenSegmentDisplay::SevenSegmentDisplay(ssd_wired_t displayWired)
+SevenSegmentDisplay::SevenSegmentDisplay(seven_segment_display_wired_t displayWired)
 {
     segmentPins[0] = displayWired.pin_a;
     segmentPins[1] = displayWired.pin_b;

@@ -3,17 +3,17 @@
 
 #include <stdint.h>
 
-/* Enumeration for display types */
+/* Enumeration for seven-segment display types */
 typedef enum
 {
-    SSD_CA = 0, // Common Anode
-    SSD_CC      // Common Cathode
-} ssd_display_type_t;
+    SEVEN_SEGMENT_DISPLAY_COMMON_ANODE = 0,
+    SEVEN_SEGMENT_DISPLAY_COMMON_CATHODE
+} seven_segment_display_type_t;
 
 /* Structure for the wiring of the display */
 typedef struct
 {
-    ssd_display_type_t common_pin; /* Type of common pin */
+    seven_segment_display_type_t common_pin; /* Type of common pin */
     uint8_t pin_a;                 /* Pin for segment A */
     uint8_t pin_b;                 /* Pin for segment B */
     uint8_t pin_c;                 /* Pin for segment C */
@@ -22,6 +22,6 @@ typedef struct
     uint8_t pin_f;                 /* Pin for segment F */
     uint8_t pin_g;                 /* Pin for segment G */
     uint8_t pin_dp;                /* Pin for the decimal point (0xFF if not used) */
-} ssd_wired_t;
+} seven_segment_display_wired_t;
 
 #endif
