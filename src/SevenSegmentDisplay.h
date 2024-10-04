@@ -85,7 +85,7 @@ private:
      * The digits representation for a Cathode Seven Segment Display (commonPin is true)
      * In the Anode Seven Segment Display representation is the inverse of this (commonPin is false)
      */
-    bool cathodeDigitsMap[10][7] = {
+    bool digitsMap[10][7] = {
         {0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x0}, /* 0 */
         {0x0, 0x1, 0x1, 0x0, 0x0, 0x0, 0x0}, /* 1 */
         {0x1, 0x1, 0x0, 0x1, 0x1, 0x0, 0x1}, /* 2 */

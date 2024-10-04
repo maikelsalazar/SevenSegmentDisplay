@@ -32,16 +32,24 @@ SevenSegmentDisplay::SevenSegmentDisplay(ssd_wired_t displayWired)
     commonPin = displayWired.common_pin;
     pinDpConnected = displayWired.pin_dp != 0XFF;
 
+    if (!commonPin)
+    {
+        for (u_int8_t digit = 0; digit < 10; digit++)
+        {
+            for (uint8_t segment = 0; segment < 7; segment++)
+            {
+                digitsMap[digit][segment] = !digitsMap[digit][segment];
+            }
+        }
+    }
+
     if (pinDpConnected)
     {
         pinDp = displayWired.pin_dp;
         pinMode(pinDp, OUTPUT);
-        if (!commonPin)
-        {
-            digitalWrite(pinDp, 0x1);
-        }
     }
     init();
+    off();
 }
 
 void SevenSegmentDisplay::init()
@@ -59,19 +67,9 @@ void SevenSegmentDisplay::display(uint8_t digit)
         return;
     }
 
-    if (commonPin) // cathode?
+    for (uint8_t segment = 0; segment < 7; segment++)
     {
-        for (uint8_t segment = 0; segment < 7; segment++)
-        {
-            digitalWrite(segmentPins[segment], cathodeDigitsMap[digit][segment]);
-        }
-    }
-    else // then it is anode
-    {
-        for (uint8_t segment = 0; segment < 7; segment++)
-        {
-            digitalWrite(segmentPins[segment], !cathodeDigitsMap[digit][segment]);
-        }
+        digitalWrite(segmentPins[segment], digitsMap[digit][segment]);
     }
 }
 
