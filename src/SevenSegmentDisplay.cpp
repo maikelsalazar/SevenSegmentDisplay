@@ -22,6 +22,9 @@ SevenSegmentDisplay::SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t p
 
 SevenSegmentDisplay::SevenSegmentDisplay(seven_segment_display_wired_t displayWired)
 {
+    commonPin = displayWired.common_pin;
+
+    /* Assign pins to segments A through G */
     segmentPins[0] = displayWired.pin_a;
     segmentPins[1] = displayWired.pin_b;
     segmentPins[2] = displayWired.pin_c;
@@ -29,9 +32,16 @@ SevenSegmentDisplay::SevenSegmentDisplay(seven_segment_display_wired_t displayWi
     segmentPins[4] = displayWired.pin_e;
     segmentPins[5] = displayWired.pin_f;
     segmentPins[6] = displayWired.pin_g;
-    commonPin = displayWired.common_pin;
-    pinDpConnected = displayWired.pin_dp != 0XFF;
 
+    /* Initialize the decimal point pin here to prevent evaluating the condition twice in the init method. */
+    pinDpConnected = displayWired.pin_dp != 0XFF;
+    if (pinDpConnected)
+    {
+        pinDp = displayWired.pin_dp;
+        pinMode(pinDp, OUTPUT);
+    }
+
+    /* Invert the original digits map for common anode; no inversion for common cathode */
     if (!commonPin)
     {
         for (u_int8_t digit = 0; digit < 10; digit++)
@@ -43,11 +53,6 @@ SevenSegmentDisplay::SevenSegmentDisplay(seven_segment_display_wired_t displayWi
         }
     }
 
-    if (pinDpConnected)
-    {
-        pinDp = displayWired.pin_dp;
-        pinMode(pinDp, OUTPUT);
-    }
     init();
     off();
 }
