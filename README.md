@@ -2,7 +2,9 @@
 
 The Seven Segment Display is an Arduino library designed to simplify the control of a seven-segment display. Its main purpose is to display decimal digits one at a time.
 
-There are two types of seven segment display: common anode and common cathode.
+There are two types of seven-segment displays:
+ - __Common Anode__: The common pin is connected to a positive voltage.
+  - __Common Cathode__: The common pin is connected to ground.
 
 ## Usage
 
