@@ -118,10 +118,10 @@ void dp(bool on);
 
 ### off
 ```c++
-    /**
-     * @brief           Turns off the display.
-     */
-    void off();
+/**
+ * @brief              Turns off the display.
+ */
+void off();
 ```
 # FAQ
 
