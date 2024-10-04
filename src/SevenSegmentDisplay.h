@@ -8,41 +8,43 @@ class SevenSegmentDisplay
 {
 public:
     /**
-     * @param displayWired Configuration of the seven-segment display wiring
+     * @param displayWired  Configuration of the seven-segment display wiring
      */
     SevenSegmentDisplay(seven_segment_display_wired_t displayWired);
 
     /**
-     * @brief               Display a digit on the Seven Segment Display
+     * @brief               Displays a digit on the Seven Segment Display
      *
-     * @param digit         digit to display
+     * @param digit         digit to display (0-9).
      */
     void display(uint8_t digit);
 
     /**
-     * @brief               Turn on or turn off the Decimal Point (DP) segment
+     * @brief               Turns the Decimal Point (DP) segment on or off.
      *
-     * @param on            true for turning on; false for turning off
+     * @param on            `true` to turn on the Decimal Point; `false` to turn it off.
      */
     void dp(bool on);
 
     /**
-     * @brief               turn off all the segments, even the Decimal Point (DP) segment if set
+     * @brief               Turns off the display.
      */
     void off();
 
 private:
-    bool commonPin;         /* false: Anode Common; true: Cathode Common */
+    bool commonPin;         /* `false`: Common Anode; `true`: Common Cathode */
 
-    uint8_t segmentPins[7]; /* storage for the the pines from A to G */
+    uint8_t segmentPins[7]; /* Storage for the the pins from A to G */
 
-    bool pinDpConnected;    /* if the DP segment pin is set or not. */
+    bool pinDpConnected;    /* If the DP segment pin is set or not. */
 
-    uint8_t pinDp;          /* Output Pin number connected to the Decimal Point segment */
+    uint8_t pinDp;          /* Pin for the decimal point (0xFF if not used) */
 
     /**
-     * The digits representation for a Cathode Seven Segment Display (commonPin is true)
-     * In the Anode Seven Segment Display representation is the inverse of this (commonPin is false)
+     * @brief               Represents the digits for a Cathode Seven Segment Display
+     *                      (when commonPin is true).
+     *                      The representation is inverted for an Anode Seven Segment
+     *                      Display (when commonPin is false).
      */
     bool digitsMap[10][7] = {
         {0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x0}, /* 0 */
@@ -58,7 +60,7 @@ private:
     };
 
     /**
-     * @brief               Set the pines (A-G) to mode OUTPUT.
+     * @brief               Sets the pins (A-G) to OUTPUT mode.
      */
     void init();
 };

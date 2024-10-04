@@ -6,94 +6,91 @@ There are two types of seven segment display: common anode and common cathode.
 
 ## Usage
 
-### Common Anode Display
+An example of displaying digits from 0 to 9 and the decimal point.
 
-> [!NOTE]
-> Please note that the first argument of the constructor is __false__; this means you are using a common anode display.
-
-An example of displaying digits from 0 to 9, not using the decimal point segment.
 ```c++
 #include "SevenSegmentDisplay.h"
 
-SevenSegmentDisplay myDisplay(false, 23, 22, 15, 17, 4, 21, 19);
+// Set to SEVEN_SEGMENT_DISPLAY_COMMON_ANODE for a common anode configuration
+const seven_segment_display_type_t commonPin = SEVEN_SEGMENT_DISPLAY_COMMON_CATHODE;
+
+const uint8_t pinA = 23;
+const uint8_t pinB = 22;
+const uint8_t pinC = 15;
+const uint8_t pinD = 17;
+const uint8_t pinE = 4;
+const uint8_t pinF = 21;
+const uint8_t pinG = 19;
+
+// Use 0xFF if the decimal point is not connected
+const uint8_t pinDp = 18;
+
+seven_segment_display_wired_t displayWired = {
+  .common_pin = commonPin,
+  .pin_a = pinA,
+  .pin_b = pinB,
+  .pin_c = pinC,
+  .pin_d = pinD,
+  .pin_e = pinE,
+  .pin_f = pinF,
+  .pin_g = pinG,
+  .pin_dp = pinDp,
+};
+SevenSegmentDisplay myDisplay(displayWired);
 
 void setup() {
- 
+  Serial.begin(9600);
 }
 
 void loop() {
-  for(uint8_t number = 0; number < 10; number++) {
-    myDisplay.display(number);
-    delay(1000);
-  }
-}
-```
-
-An example of displaying the digits from 0 to 9, followed by turning the decimal point on and off.
-```c++
-#include "SevenSegmentDisplay.h"
-
-SevenSegmentDisplay myDisplay(false, 23, 22, 15, 17, 4, 21, 19, 18);
-
-void setup() {
-
-}
-
-void loop() {
-  for(uint8_t number = 0; number < 10; number++) {
-    myDisplay.display(number);
-    delay(1000);
-  }
+  /* Turn on the decimal point */
   myDisplay.dp(true);
+
   delay(1000);
+
+  /* Turn off the decimal point */
   myDisplay.dp(false);
-  delay(1000);
+
+  /* Display each digit from 0 to 9 */
+  for(uint8_t digit = 0; digit < 10; digit++) {
+    myDisplay.display(digit);
+    delay(1000);
+  }
+
+  /* Turn off the display */
+  myDisplay.off();
 }
 ```
 
-### Common Cathode Display
+## Types
 
-> [!NOTE]
-> Please note that the first argument of the constructor is __true__; this means you are using a common cathode display.
-
-An example of displaying digits from 0 to 9, not using the decimal point segment.
+### seven_segment_display_type_t
 ```c++
-#include "SevenSegmentDisplay.h"
-
-SevenSegmentDisplay myDisplay(true, 23, 22, 15, 17, 4, 21, 19);
-
-void setup() {
-
-}
-
-void loop() {
-  for(uint8_t number = 0; number < 10; number++) {
-    myDisplay.display(number);
-    delay(1000);
-  }
-}
+/* Enumeration for seven-segment display types */
+typedef enum
+{
+    SEVEN_SEGMENT_DISPLAY_COMMON_ANODE = 0,
+    SEVEN_SEGMENT_DISPLAY_COMMON_CATHODE
+} seven_segment_display_type_t;
 ```
 
-An example of displaying the digits from 0 to 9, followed by turning the decimal point on and off.
+### seven_segment_display_wired_t
 ```c++
-#include "SevenSegmentDisplay.h"
+/* Structure for the wiring of the display */
+typedef struct
+{
+    seven_segment_display_type_t common_pin; /* Type of common pin */
+    uint8_t pin_a;                           /* Pin for segment A */
+    uint8_t pin_b;                           /* Pin for segment B */
+    uint8_t pin_c;                           /* Pin for segment C */
+    uint8_t pin_d;                           /* Pin for segment D */
+    uint8_t pin_e;                           /* Pin for segment E */
+    uint8_t pin_f;                           /* Pin for segment F */
+    uint8_t pin_g;                           /* Pin for segment G */
+    uint8_t pin_dp;                          /* Pin for the decimal point (0xFF if not used) */
+} seven_segment_display_wired_t;
 
-SevenSegmentDisplay myDisplay(true, 23, 22, 15, 17, 4, 21, 19, 18);
-
-void setup() {
-
-}
-
-void loop() {
-  for(uint8_t number = 0; number < 10; number++) {
-    myDisplay.display(number);
-    delay(1000);
-  }
-  myDisplay.dp(true);
-  delay(1000);
-  myDisplay.dp(false);
-  delay(1000);
-}
+#endif /* SEVEN_SEGMENT_DISPLAY_T_H */
 ```
 
 ## Methods
@@ -102,9 +99,9 @@ void loop() {
 
 ```c++
 /**
- * @brief               Display a digit on the Seven Segment Display
+ * @brief               Displays a digit on the Seven Segment Display
  *
- * @param digit         digit to display
+ * @param digit         digit to display (0-9).
  */
 void display(uint8_t digit);
 ```
@@ -112,9 +109,9 @@ void display(uint8_t digit);
 ### dp
 ```c++
 /**
- * @brief               Turn on or turn off the Decimal Point (DP) segment
+ * @brief               Turns the Decimal Point (DP) segment on or off.
  *
- * @param on            true for turning on; false for turning off
+ * @param on            `true` to turn on the Decimal Point; `false` to turn it off.
  */
 void dp(bool on);
 ```
@@ -122,7 +119,7 @@ void dp(bool on);
 ### off
 ```c++
     /**
-     * @brief               turn off all the segments, even the Decimal Point (DP) segment if set
+     * @brief           Turns off the display.
      */
     void off();
 ```
