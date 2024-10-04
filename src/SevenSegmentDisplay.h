@@ -60,7 +60,7 @@ private:
     };
 
     /**
-     * @brief               Sets the pins (A-G) to OUTPUT mode.
+     * @brief               Sets the pins (A-G) to OUTPUT mode. Also inverts the digitsMap if necessary.
      */
     void init();
 };

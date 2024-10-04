@@ -21,6 +21,17 @@ SevenSegmentDisplay::SevenSegmentDisplay(seven_segment_display_wired_t displayWi
         pinMode(pinDp, OUTPUT);
     }
 
+    init();
+    off();
+}
+
+void SevenSegmentDisplay::init()
+{
+    for (uint8_t segment = 0; segment < 7; segment++)
+    {
+        pinMode(segmentPins[segment], OUTPUT);
+    }
+
     /* Invert the original digits map for common anode; no inversion for common cathode */
     if (!commonPin)
     {
@@ -31,17 +42,6 @@ SevenSegmentDisplay::SevenSegmentDisplay(seven_segment_display_wired_t displayWi
                 digitsMap[digit][segment] = !digitsMap[digit][segment];
             }
         }
-    }
-
-    init();
-    off();
-}
-
-void SevenSegmentDisplay::init()
-{
-    for (uint8_t segment = 0; segment < 7; segment++)
-    {
-        pinMode(segmentPins[segment], OUTPUT);
     }
 }
 
