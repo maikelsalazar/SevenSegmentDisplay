@@ -8,49 +8,8 @@ class SevenSegmentDisplay
 {
 public:
     /**
-     * @deprecated          use SevenSegmentDisplay(seven_segment_display_wired_t displayWired) instead
-     *
-     * @param commonPin     Display type: Anode: false; Cathode: true
-     *
-     * @param pinA          Output Pin number connected to the A segment
-     *
-     * @param pinB          Output Pin number connected to the B segment
-     *
-     * @param pinC          Output Pin number connected to the C segment
-     *
-     * @param pinD          Output Pin number connected to the D segment
-     *
-     * @param pinE          Output Pin number connected to the E segment
-     *
-     * @param pinF          Output Pin number connected to the F segment
-     *
-     * @param pinG          Output Pin number connected to the G segment
+     * @param displayWired Configuration of the seven-segment display wiring
      */
-    SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t pinB, uint8_t pinC, uint8_t pinD, uint8_t pinE, uint8_t pinF, uint8_t pinG);
-
-    /**
-     * @deprecated          use SevenSegmentDisplay(seven_segment_display_wired_t displayWired) instead
-     *
-     * @param commonPin     Display type: Anode: false; Cathode: true
-     *
-     * @param pinA          Output Pin number connected to the A segment
-     *
-     * @param pinB          Output Pin number connected to the B segment
-     *
-     * @param pinC          Output Pin number connected to the C segment
-     *
-     * @param pinD          Output Pin number connected to the D segment
-     *
-     * @param pinE          Output Pin number connected to the E segment
-     *
-     * @param pinF          Output Pin number connected to the F segment
-     *
-     * @param pinG          Output Pin number connected to the G segment
-     *
-     * @param pinDp         Output Pin number connected to the Decimal Point(DP) segment
-     */
-    SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t pinB, uint8_t pinC, uint8_t pinD, uint8_t pinE, uint8_t pinF, uint8_t pinG, uint8_t pinDp);
-
     SevenSegmentDisplay(seven_segment_display_wired_t displayWired);
 
     /**

@@ -1,25 +1,5 @@
 #include "SevenSegmentDisplay.h"
 
-SevenSegmentDisplay::SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t pinB, uint8_t pinC, uint8_t pinD, uint8_t pinE, uint8_t pinF, uint8_t pinG) : commonPin(commonPin)
-{
-    segmentPins[0] = pinA;
-    segmentPins[1] = pinB;
-    segmentPins[2] = pinC;
-    segmentPins[3] = pinD;
-    segmentPins[4] = pinE;
-    segmentPins[5] = pinF;
-    segmentPins[6] = pinG;
-    pinDpConnected = false;
-    init();
-}
-
-SevenSegmentDisplay::SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t pinB, uint8_t pinC, uint8_t pinD, uint8_t pinE, uint8_t pinF, uint8_t pinG, uint8_t pinDp) : SevenSegmentDisplay(commonPin, pinA, pinB, pinC, pinD, pinE, pinF, pinG)
-{
-    pinDpConnected = true;
-    this->pinDp = pinDp;
-    pinMode(pinDp, OUTPUT); // init() do not set the mode to the DP pin
-}
-
 SevenSegmentDisplay::SevenSegmentDisplay(seven_segment_display_wired_t displayWired)
 {
     commonPin = displayWired.common_pin;
