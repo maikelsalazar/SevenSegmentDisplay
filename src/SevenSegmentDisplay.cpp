@@ -1,4 +1,4 @@
-#include "sevenSegmentDisplay.h"
+#include "SevenSegmentDisplay.h"
 
 SevenSegmentDisplay::SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t pinB, uint8_t pinC, uint8_t pinD, uint8_t pinE, uint8_t pinF, uint8_t pinG) : commonPin(commonPin)
 {
@@ -18,6 +18,30 @@ SevenSegmentDisplay::SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t p
     pinDpConnected = true;
     this->pinDp = pinDp;
     pinMode(pinDp, OUTPUT); // init() do not set the mode to the DP pin
+}
+
+SevenSegmentDisplay::SevenSegmentDisplay(ssd_wired_t displayWired)
+{
+    segmentPins[0] = displayWired.pin_a;
+    segmentPins[1] = displayWired.pin_b;
+    segmentPins[2] = displayWired.pin_c;
+    segmentPins[3] = displayWired.pin_d;
+    segmentPins[4] = displayWired.pin_e;
+    segmentPins[5] = displayWired.pin_f;
+    segmentPins[6] = displayWired.pin_g;
+    commonPin = displayWired.common_pin;
+    pinDpConnected = displayWired.pin_dp != 0XFF;
+
+    if (pinDpConnected)
+    {
+        pinDp = displayWired.pin_dp;
+        pinMode(pinDp, OUTPUT);
+        if (!commonPin)
+        {
+            digitalWrite(pinDp, 0x1);
+        }
+    }
+    init();
 }
 
 void SevenSegmentDisplay::init()

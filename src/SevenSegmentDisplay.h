@@ -2,11 +2,14 @@
 #define SevenSegmentDisplay_H
 
 #include "Arduino.h"
+#include "seven_segment_display_t.h"
 
 class SevenSegmentDisplay
 {
 public:
     /**
+     * @deprecated          use SevenSegmentDisplay(ssd_wired_t displayWired) instead
+     *
      * @param commonPin     Display type: Anode: false; Cathode: true
      *
      * @param pinA          Output Pin number connected to the A segment
@@ -26,6 +29,7 @@ public:
     SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t pinB, uint8_t pinC, uint8_t pinD, uint8_t pinE, uint8_t pinF, uint8_t pinG);
 
     /**
+     * @deprecated          use SevenSegmentDisplay(ssd_wired_t displayWired) instead
      *
      * @param commonPin     Display type: Anode: false; Cathode: true
      *
@@ -46,6 +50,8 @@ public:
      * @param pinDp         Output Pin number connected to the Decimal Point(DP) segment
      */
     SevenSegmentDisplay(bool commonPin, uint8_t pinA, uint8_t pinB, uint8_t pinC, uint8_t pinD, uint8_t pinE, uint8_t pinF, uint8_t pinG, uint8_t pinDp);
+
+    SevenSegmentDisplay(ssd_wired_t displayWired);
 
     /**
      * @brief               Display a digit on the Seven Segment Display
