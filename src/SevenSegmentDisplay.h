@@ -1,5 +1,5 @@
-#ifndef SevenSegmentDisplay_H
-#define SevenSegmentDisplay_H
+#ifndef SEVEN_SEGMENT_DISPLAY_H
+#define SEVEN_SEGMENT_DISPLAY_H
 
 #include "Arduino.h"
 #include "seven_segment_display_t.h"
@@ -104,4 +104,4 @@ private:
     void init();
 };
 
-#endif
+#endif /* SEVEN_SEGMENT_DISPLAY_H */
