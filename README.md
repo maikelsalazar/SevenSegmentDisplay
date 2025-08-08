@@ -28,7 +28,7 @@ const uint8_t pinG = 19;
 const uint8_t pinDp = 18;
 
 seven_segment_display_wired_t displayWired = {
-  .common_pin = commonPin,
+  .common_type = commonPin,
   .pin_a = pinA,
   .pin_b = pinB,
   .pin_c = pinC,
@@ -81,7 +81,7 @@ typedef enum
 /* Structure for the wiring of the display */
 typedef struct
 {
-    seven_segment_display_type_t common_pin; /* Type of common pin */
+    seven_segment_display_type_t common_type; /* Type of common pin */
     uint8_t pin_a;                           /* Pin for segment A */
     uint8_t pin_b;                           /* Pin for segment B */
     uint8_t pin_c;                           /* Pin for segment C */
